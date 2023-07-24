@@ -1,3 +1,5 @@
+let city;
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
   mapOption = {
     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -22,8 +24,9 @@ console.log(parsedData.data)
 //   { add: "대구광역시 중구 동성로3길 77", title: "오이시카츠" },
 // ];
 
+// 1000개의 값 중에서 filter를 이용하여 "대구광역시"가 포함된 배열만 받아서 새로운 배열을 만든다.
 const dataDaegu = parsedData.data.filter(item => item.소재지도로명주소.includes("대구광역시"));
-console.log(dataDaegu)
+console.log(dataDaegu);
 
 dataDaegu.map(item => {
   // 주소로 좌표를 검색합니다
