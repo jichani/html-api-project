@@ -5,5 +5,5 @@ fetch("https://api.odcloud.kr/api/15052836/v1/uddi:2253111c-b6f3-45ad-9d66-924fd
   .then((data) => {
     // 로컬스토리지에 addressArray로 저장한다.
     localStorage.setItem("addressArray", JSON.stringify(data));
-    console.log(data);
+    // console.log(data);
   });

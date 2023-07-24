@@ -1,4 +1,13 @@
 let city;
+const url = new URL(window.location.href);
+const params = new URLSearchParams(url.search);
+// console.log(params.get("city"));
+
+city = params.get("city");
+city = city ? city : "대구광역시";
+console.log(city)
+
+
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
   mapOption = {
@@ -16,7 +25,7 @@ var geocoder = new kakao.maps.services.Geocoder();
 const storageData = localStorage.getItem("addressArray");
 // string으로 저장된 값을 파싱하여 json 값으로 변환한다.
 const parsedData = JSON.parse(storageData);
-console.log(parsedData.data)
+// console.log(parsedData.data)
 
 // const ADDRESS = [
 //   { add: "대구광역시 중구 동성로3길 12-6", title: "오름" },
@@ -25,8 +34,8 @@ console.log(parsedData.data)
 // ];
 
 // 1000개의 값 중에서 filter를 이용하여 "대구광역시"가 포함된 배열만 받아서 새로운 배열을 만든다.
-const dataDaegu = parsedData.data.filter(item => item.소재지도로명주소.includes("대구광역시"));
-console.log(dataDaegu);
+const dataDaegu = parsedData.data.filter(item => item.소재지도로명주소.includes(city));
+// console.log(dataDaegu);
 
 dataDaegu.map(item => {
   // 주소로 좌표를 검색합니다
@@ -46,7 +55,14 @@ dataDaegu.map(item => {
       // 인포윈도우로 장소에 대한 설명을 표시합니다
       var infowindow = new kakao.maps.InfoWindow({
         content: `<div class="flex flex-col text-neutral-400 space-y-0 p-2">
-        <div class="text-[10px]">${item.시장명}</div></div>`
+        <div class="text-[10px]">${item.시장명}</div>
+        <div class="text-[9px]">${item.소재지도로명주소.replace("대구광역시", "")}
+        </div>
+        <div class="text-[9px] flex space-x-1">
+          <div>사용가능상품권</div>
+          <div>:</div>
+          <div>${item.사용가능상품권}</div>
+        </div>`
       });
       infowindow.open(map, marker);
 
