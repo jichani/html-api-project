@@ -10,17 +10,26 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
-const ADDRESS = [
-  { add: "대구광역시 중구 동성로3길 12-6", title: "오름" },
-  { add: "대구광역시 중구 동성로2길 21-5", title: "마마다이닝" },
-  { add: "대구광역시 중구 동성로3길 77", title: "오이시카츠" },
-];
+// 로컬스토리지에 저장된 addressArray를 가져온다.
+const storageData = localStorage.getItem("addressArray");
+// string으로 저장된 값을 파싱하여 json 값으로 변환한다.
+const parsedData = JSON.parse(storageData);
+console.log(parsedData.data)
 
-ADDRESS.map(item => {
+// const ADDRESS = [
+//   { add: "대구광역시 중구 동성로3길 12-6", title: "오름" },
+//   { add: "대구광역시 중구 동성로2길 21-5", title: "마마다이닝" },
+//   { add: "대구광역시 중구 동성로3길 77", title: "오이시카츠" },
+// ];
+
+const dataDaegu = parsedData.data.filter(item => item.소재지도로명주소.includes("대구광역시"));
+console.log(dataDaegu)
+
+dataDaegu.map(item => {
   // 주소로 좌표를 검색합니다
-  geocoder.addressSearch(item.add, function (result, status) {
+  geocoder.addressSearch(item.소재지도로명주소, function (result, status) {
 
-    // 정상적으로 검색이 완료됐으면 
+    // 정상적으로 검색이 완료됐으면
     if (status === kakao.maps.services.Status.OK) {
 
       var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -33,7 +42,8 @@ ADDRESS.map(item => {
 
       // 인포윈도우로 장소에 대한 설명을 표시합니다
       var infowindow = new kakao.maps.InfoWindow({
-        content: `<div style="width:150px;text-align:center;padding:6px 0;">${item.title}</div>`
+        content: `<div class="flex flex-col text-neutral-400 space-y-0 p-2">
+        <div class="text-[10px]">${item.시장명}</div></div>`
       });
       infowindow.open(map, marker);
 
