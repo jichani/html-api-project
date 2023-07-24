@@ -9,8 +9,35 @@
 </head>
 
 <body>
-  <header></header>
-  <main></main>
+  <header>
+    <div class="w-full flex justify-between items-center h-20 shadow-sm">
+      <div class="flex h-full items-center space-x-8">
+        <!-- 로고 -->
+        <div class="px-4">
+          <img class="h-12" src="./img/logo_black.png" alt="logo">
+        </div>
+
+        <!-- 메뉴리스트 -->
+        <ul class="flex space-x-8">
+          <li>대구광역시</li>
+          <li>경상북도</li>
+          <li>경상남도</li>
+          <li>부산광역시</li>
+          <li>경기도</li>
+          <li>서울특별시</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div id="map" class="w-full h-[calc(100vh-80px)]"></div>
+  </main>
+
+
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6b94c492ea514833ba4fe0a9d6a43b6e&libraries=services"></script>
+  <script src="./js/map.js"></script>
+  <script src="./js/apiData.js"></script>
 </body>
 
 </html>
